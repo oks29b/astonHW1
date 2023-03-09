@@ -104,6 +104,7 @@ public class MyArrayList<T> implements MyList<T> {
         for (int i = 0; i < array.length; i++) {
             array[i] = null;
         }
+        this.countElementsOfArray = 0;
     }
 
     /**
