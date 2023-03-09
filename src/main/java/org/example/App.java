@@ -1,6 +1,8 @@
 package org.example;
 
- /**
+import java.util.Arrays;
+
+/**
  * @author Oksana Borisenko
  *
  */
@@ -29,9 +31,13 @@ public class App
         System.out.println("_________");
         System.out.println(test1.isExists(2));
         System.out.println("_________");
+        test1.quickSort((x, y) -> x - y);
+        System.out.println(test1);
+        System.out.println("_________");
         test1.removeAll();
         System.out.println(test1);
         System.out.println("_________");
+
 
 
         MyArrayList<String> test2 = new MyArrayList<>();
@@ -52,6 +58,9 @@ public class App
         System.out.println(test2);
         System.out.println("_________");
         System.out.println(test2.isExists("aaa"));
+        System.out.println("_________");
+        test2.quickSort((x, y) -> x.compareTo(y));
+        System.out.println(test2);
         System.out.println("_________");
         test2.removeAll();
         System.out.println(test2);

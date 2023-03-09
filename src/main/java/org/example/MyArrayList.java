@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * @author Oksana Borisenko
@@ -27,7 +28,7 @@ public class MyArrayList<T> implements MyList<T> {
      * */
     public MyArrayList() {
         Object [] arr = new Object[INIT_SIZE];
-        this.array = (T[]) arr ;
+        this.array = (T[]) arr;
         this.countElementsOfArray = 0;
     }
 
@@ -112,8 +113,10 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public void remove(T object){
         if(get(object) >= 0){
-            this.array[get(object)] = null;
-            this.countElementsOfArray--;
+//            this.array[get(object)] = null;
+            System.arraycopy(array, get(object) + 1, array,
+                    get(object), countElementsOfArray - get(object) - 1);
+            this.array[--countElementsOfArray] = null;
         }
     }
 
@@ -186,6 +189,56 @@ public class MyArrayList<T> implements MyList<T> {
             newArray[i] = this.array[i];
         }
         this.array = (T[]) newArray;
+    }
+
+    /**
+     * The method allow you to sort array.
+     * @param comparator Parameter for defining sorting logic.
+     * */
+    @Override
+    public void quickSort(Comparator<T> comparator) {
+        quickSort(comparator, 0, this.countElementsOfArray - 1);
+    }
+
+    /**
+     * The overloaded method uses the partition method to select a references
+     * element and split the array into two parts. Then the quickSort method
+     * recursively calls itself for the left and right parts of the list.
+     * */
+    private void quickSort(Comparator<T> comparator, int left, int right){
+        if(left < right){
+            int divideIndex = partition(comparator, left, right);
+            quickSort(comparator, left, divideIndex -1);
+            quickSort(comparator, divideIndex, right);
+        }
+    }
+
+    /**
+     * The partition method uses the reference element to compare with all the other
+     * elements in the list. Elements smaller or equal to the reference element
+     * move to the left of the reference element, and elements larger than the reference
+     * element move to the right of the reference element.
+     * */
+    private int partition(Comparator<T> comparator, int left, int right){
+        T pivotValue = this.array[right];
+        int i = left - 1;
+        for (int j = left; j < right; j++){
+            if(comparator.compare(this.array[j],pivotValue) <= 0){
+                i++;
+                swap(i,j);
+            }
+        }
+        swap(i+1, right);
+        return i+1;
+    }
+
+    /**
+     * The method allow you to change the location of two elements between each other.
+     * */
+    private void swap(int i, int j){
+        T temp = this.array[i];
+        this.array[i] = array[j];
+        this.array[j] = temp;
     }
 
     @Override

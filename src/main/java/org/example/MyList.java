@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Comparator;
+
 /**
  * @author Oksana Borisenko
  *
@@ -14,6 +16,5 @@ public interface MyList<T> {
     boolean isExists(T object);
     void removeAll();
 
-    //TODO:
-//    void sort(Comparator<? super T> c);
+    void quickSort(Comparator<T> comparator);
 }
